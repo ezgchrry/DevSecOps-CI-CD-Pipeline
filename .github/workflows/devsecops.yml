@@ -1,0 +1,25 @@
+# bu dosya, insan müdahalesini ortadan kaldıran SDLC otomasyonu tarifidir.
+name: DevSecOps Workflow
+
+on: [push] # tetikleyicidir. kod githuba gönderildiği an her şeyin başlamasını sağlar.
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu Klonla
+        uses: actions/checkout@v3
+
+      - name: Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Gerekli Araçları Yükle
+        run: pip install pytest bandit
+
+      - name: CI - Birim Testleri (Unit Tests)
+        run: pytest test_app.py
+
+      - name: DevSecOps - Güvenlik Taraması (SAST)
+        run: bandit -r app.py

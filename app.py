@@ -8,6 +8,6 @@ def check_password_strength(password):
 
 if __name__ == "__main__":
     print(check_password_strength("12345678"))
-    os.system("echo Sunum Basarili")
+
 
 
